@@ -6,7 +6,8 @@ pipeline{
     stages{
         stage("checkout"){
             steps{
-            checkout scmGit(branches: [[name: '*/master']], extensions: [], userRemoteConfigs: [[url: 'https://github.com/kulkarni8888/myPythonDockerRepo.git']])
+             checkout([$class: 'GitSCM', branches: [[name: '*/master']], doGenerateSubmoduleConfigurations: false, extensions: [], submoduleCfg: [], userRemoteConfigs: [[credentialsId: '', url:[[url: 'https://github.com/kulkarni8888/myPythonDockerRepo.git']])
+
             }
         }
         stage("Docker Build"){
@@ -25,11 +26,12 @@ pipeline{
                     sh 'docker push 677168019264.dkr.ecr.ap-south-1.amazonaws.com/my-docker-repo:latest'
                 }
             }
-            stage('Docker Run'){
+            
+          }
+                 stage('Docker Run'){
                 steps{
                     script{
-                        sh 'docker run -d -p 8096:5000 --rm --name mypythonContainer 677168019264.dkr.ecr.ap-south-1.amazonaws.com/my-docker-repo:latest'
-                    }
+                        sh 'docker run -d -p 8096:5000 --rm --name mypythonContainer 677168019264.dkr.ecr.ap-south-1.amazonaws.com/my-docker-repo:latest'                                                                                                                                                          
                 }
             }
         }
