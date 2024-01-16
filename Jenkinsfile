@@ -6,8 +6,7 @@ pipeline{
     stages{
         stage("checkout"){
             steps{
-             checkout([$class: 'GitSCM', branches: [[name: '*/master']], doGenerateSubmoduleConfigurations: false, extensions: [], submoduleCfg: [], userRemoteConfigs: [[credentialsId: '', url:[[url: 'https://github.com/kulkarni8888/myPythonDockerRepo.git']])
-
+ checkout([$class: 'GitSCM', branches: [[name: '*/master']], doGenerateSubmoduleConfigurations: false, extensions: [], submoduleCfg: [], userRemoteConfigs: [[credentialsId: '', url: 'https://github.com/kulkarni8888/myPythonDockerRepo.git']]])     
             }
         }
         stage("Docker Build"){
